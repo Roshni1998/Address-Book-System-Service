@@ -12,6 +12,8 @@ import java.util.Scanner;
 
 public class Main {
 
+    public static AddressBookService addressBookService = new AddressBookService();
+
     // Main Method
     public static void main(String[] args) {
         System.out.println("*********************************************************");
@@ -32,10 +34,29 @@ public class Main {
 
         String input = "Start";
         while(!input.equalsIgnoreCase("quit")) {
-           // PrintUtils.print(DataBase.dtoMap);
-            addressBookService.addData(UserInput.userInputFromConsole());
+
+            System.out.println("Pick up the correct choice!");
+            System.out.println("1. Add New Contact");
+            System.out.println("2. Update Existing Contact");
+            int choice = sc.nextInt();
+            switch(choice){
+                case 1:
+                    addressBookService.addData(UserInput.userInputFromConsole());
+                    break;
+                case 2:
+                    updateRecords();
+                    break;
+                default:
+                    System.out.println("Please Enter valid choice!!");
+                    break;
+            }
             PrintUtils.print(DataBase.dtoMap);
             input = sc.nextLine();
         }
+    }
+    /* UC-3 */
+    // To update the records of address book
+    private static void updateRecords() {
+        addressBookService.updateAddressBook(UserInput.userInputFromConsole());
     }
 }
